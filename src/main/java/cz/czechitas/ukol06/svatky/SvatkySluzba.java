@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.time.MonthDay;
 import java.util.List;
+import java.util.Optional;
 
 public class SvatkySluzba {
 
@@ -20,8 +21,12 @@ public class SvatkySluzba {
     public SvatkySluzba() throws IOException {
         // TODO načíst seznam svátků ze souboru svatky.json
 
+        seznamSvatku = objectMapper.readValue(cestaKDatum.toFile(), SeznamSvatku.class);
+        seznamSvatku.setSvatky(seznamSvatku.getSvatky());
+        objectMapper.writeValue(cestaKDatum.toFile(), seznamSvatku);
+
         // Následující řádek po vlastní implementaci smažete.
-        seznamSvatku = null;
+        // seznamSvatku = null;
     }
 
     public List<String> vyhledatSvatkyDnes() {
@@ -36,7 +41,11 @@ public class SvatkySluzba {
         // pomocí metody map() získat z objektu jméno
         // pomocí toList() převést na List
 
-        // Následující řádek po vlastní implementaci smažete.
-        return List.of();
+
+        return seznamSvatku.getSvatky().stream()
+                .filter(svatek -> svatek.getDen().equals(day))
+                .map(Svatek::getJmeno)
+                .toList();
+
     }
 }
