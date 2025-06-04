@@ -24,9 +24,6 @@ public class SvatkySluzba {
         seznamSvatku = objectMapper.readValue(cestaKDatum.toFile(), SeznamSvatku.class);
         seznamSvatku.setSvatky(seznamSvatku.getSvatky());
         objectMapper.writeValue(cestaKDatum.toFile(), seznamSvatku);
-
-        // Následující řádek po vlastní implementaci smažete.
-        // seznamSvatku = null;
     }
 
     public List<String> vyhledatSvatkyDnes() {
@@ -41,11 +38,9 @@ public class SvatkySluzba {
         // pomocí metody map() získat z objektu jméno
         // pomocí toList() převést na List
 
-
         return seznamSvatku.getSvatky().stream()
                 .filter(svatek -> svatek.getDen().equals(day))
                 .map(Svatek::getJmeno)
                 .toList();
-
     }
 }
