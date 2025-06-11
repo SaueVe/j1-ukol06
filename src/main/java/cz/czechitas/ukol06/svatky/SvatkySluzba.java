@@ -22,8 +22,6 @@ public class SvatkySluzba {
         // TODO načíst seznam svátků ze souboru svatky.json
 
         seznamSvatku = objectMapper.readValue(cestaKDatum.toFile(), SeznamSvatku.class);
-        seznamSvatku.setSvatky(seznamSvatku.getSvatky());
-        objectMapper.writeValue(cestaKDatum.toFile(), seznamSvatku);
     }
 
     public List<String> vyhledatSvatkyDnes() {
